@@ -85,21 +85,25 @@ func TestAddTwoList(t *testing.T) {
 	list3 := linkNode.AddTwoList(list1, list2)
 	if list3.Val != 7 {
 		t.Errorf("err 4-1 want 7, get %d", list3.Val)
+	} else {
+		t.Log("PASS 4-1")
 	}
 	if list3.Next.Val != 0 {
 		t.Errorf("err 4-2 want 0, get %d", list3.Next.Val)
+	} else {
+		t.Log("PASS 4-2")
 	}
 	if list3.Next.Next.Val != 8 {
 		t.Errorf("err 4-3 want 8, get %d", list3.Next.Next.Val)
+	} else {
+		t.Log("PASS 4-3")
 	}
 	n7 := linkNode.ListNode{5, nil}
 	n8 := linkNode.ListNode{5, nil}
 	list3 = linkNode.AddTwoList(&n7, &n8)
 	if list3.Next.Val != 1 {
 		t.Errorf("err 4-4 want 1, get %d", list3.Next.Val)
+	} else {
+		t.Log("PASS 4-4")
 	}
-}
-
-func TestPoint(t *testing.T) {
-	t.Log(linkNode.PointT())
 }

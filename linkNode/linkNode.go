@@ -2,12 +2,18 @@ package linkNode
 
 import (
 	"encoding/json"
-	"fmt"
+	// "fmt"
 )
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+// 方便查看数据
+func ToString(v interface{}) string {
+	s, _ := json.Marshal(v)
+	return string(s)
 }
 
 func (list *ListNode) GetRear() (rear *ListNode) {
@@ -65,11 +71,7 @@ func (list1 *ListNode) Add(list2 *ListNode) *ListNode {
 	return list3
 }
 
-func ToString(v interface{}) string {
-	s, _ := json.Marshal(v)
-	return string(s)
-}
-
+// leetcode答案
 func AddTwoList(l1, l2 *ListNode) *ListNode {
 	list3 := &ListNode{}
 	rear := &ListNode{}
@@ -97,23 +99,11 @@ func AddTwoList(l1, l2 *ListNode) *ListNode {
 			rear = tmp
 			isHead = false
 		} else {
-			// 通过指针达到这种效果！！！
-			rear.Next = tmp
-			rear = tmp
+			// 运用指针
+			rear.Next = tmp // 更新链表尾部值和地址
+			rear = tmp      // 便于下次从尾部追加数据
 		}
 
 	}
 	return list3
-}
-
-func PointT() bool {
-	tmp := &ListNode{}
-	a := tmp
-	b := tmp
-	// a = &ListNode{2, nil}
-	a.Next = &ListNode{1, nil}
-	a.Next.Next = &ListNode{2, nil}
-	fmt.Println(ToString(a))
-	fmt.Println(ToString(b))
-	return b.Val == 0
 }
