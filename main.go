@@ -1,9 +1,9 @@
 package main
 
-import (
-	"leetcode/linkNode"
-)
+// import (
+// 	"leetcode/linkNode"
+// )
 
 func main() {
-	linkNode.TT()
+	// linkNode.TT()
 }
