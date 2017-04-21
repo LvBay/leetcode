@@ -28,28 +28,23 @@ func Repeat(str string) bool {
 	return false
 }
 
-// abcc abcac ohomm
+// abcc abccb ohomm abccdfg
 func Substring2(s string) int {
-	m := make(map[rune]int, len(s))
-	var max, tmp int
+	m := map[rune]int{}
+	var max, begin int
 	for i, v := range s {
 		if j, exist := m[v]; exist {
-			if max == 0 {
-				max = i // 第一次
-			}
-			sub := i - j
-			if sub > max {
-				max = sub
-			}
-			tmp = sub
-			m = make(map[rune]int, len(s))
-		} else {
-			tmp++
+			begin = Max(j+1, begin)
 		}
 		m[v] = i
-	}
-	if tmp > max {
-		max = tmp
+		max = Max(max, i-begin+1)
 	}
 	return max
+}
+
+func Max(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
 }
