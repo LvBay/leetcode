@@ -31,25 +31,21 @@ func Repeat(str string) bool {
 // abcc abcac ohomm
 func Substring2(s string) int {
 	m := make(map[rune]int, len(s))
-	var max, tmp int
+	var max, begin int
 	for i, v := range s {
 		if j, exist := m[v]; exist {
-			if max == 0 {
-				max = i // 第一次
-			}
-			sub := i - j
-			if sub > max {
-				max = sub
-			}
-			tmp = sub
-			m = make(map[rune]int, len(s))
+			max = Max(max, i-j)
+			begin = j
 		} else {
-			tmp++
+			max = Max(max, i-begin)
 		}
-		m[v] = i
-	}
-	if tmp > max {
-		max = tmp
 	}
 	return max
+}
+
+func Max(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
 }
