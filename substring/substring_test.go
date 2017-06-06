@@ -7,7 +7,8 @@ import (
 
 func TestSubstring2(t *testing.T) {
 	input := []string{"abcdd", "abccb", "abccdfg", "abccdb", "ohomm"}
-	out := []int{4, 3, 4, 3, 3} {
+	out := []int{4, 3, 4, 3, 3}
+	for i, v := range input {
 		t.Log("i:", i)
 		res := substring.Substring2(v)
 		if res != out[i] {
