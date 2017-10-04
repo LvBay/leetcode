@@ -11,18 +11,20 @@ var ret1, ret2, ret3 []int
 // 中序遍历
 func inorderTraversal(root *TreeNode) []int {
 	p := root
-	ret := []int{}
 	stack := []*TreeNode{}
-	for p != nil || len(stack) != 0 {
+	ret := []int{}
+
+	for p != nil || len(stack) > 0 {
 		for p != nil {
 			stack = append(stack, p)
 			p = p.Left
 		}
-		if len(stack) != 0 {
+
+		if len(stack) > 0 {
 			tmp := stack[len(stack)-1]
-			stack = stack[:len(stack)-1]
-			p = tmp.Right
+			p = tmp.Right // 每次添加值之后，检查右子节点
 			ret = append(ret, tmp.Val)
+			stack = stack[:len(stack)-1]
 		}
 	}
 	return ret
@@ -73,19 +75,69 @@ func preorderTraversal2(root *TreeNode) []int {
 
 // 后序遍历
 func suorderTraversal(root *TreeNode) []int {
+	stack := []*TreeNode{}
+	var cur *TreeNode
+	var pre *TreeNode
+	stack = append(stack, root)
+	var ret []int
+
+	for len(stack) > 0 {
+		cur = stack[len(stack)-1]
+		// 如果栈顶是叶子节点或者上个节点等于当前节点的子节点
+		if (cur.Left == nil && cur.Right == nil) || (pre != nil && (pre == cur.Left || pre == cur.Right)) {
+			ret = append(ret, cur.Val)
+			stack = stack[:len(stack)-1]
+			pre = cur
+
+		} else {
+			if cur.Right != nil {
+				stack = append(stack, cur.Right)
+			}
+			if cur.Left != nil {
+				stack = append(stack, cur.Left)
+			}
+		}
+	}
+	return ret
+}
+
+// 后序遍历
+func mysuorderTraversal(root *TreeNode) []int {
+	stack := []*TreeNode{}
 	p := root
 	ret := []int{}
-	stack := []*TreeNode{}
-	for p != nil || len(stack) != 0 {
+	stack = append(stack, p)
+
+	flag := false
+	var right int
+	if root.Right != nil {
+		flag = true
+		right = root.Right.Val
+	}
+
+	for len(stack) > 0 {
 		for p != nil {
-			stack = append(stack, p)
+			if p.Right != nil {
+				stack = append(stack, p.Right)
+			}
+			if p.Left != nil {
+				stack = append(stack, p.Left)
+			}
+
 			p = p.Left
 		}
-		if len(stack) != 0 {
+
+		if len(stack) > 0 {
 			tmp := stack[len(stack)-1]
+			if tmp.Val == right && flag {
+				p = tmp
+				flag = false
+				continue
+			}
 			stack = stack[:len(stack)-1]
-			p = tmp.Right
 			ret = append(ret, tmp.Val)
+
+			p = tmp.Right
 		}
 	}
 	return ret

@@ -4,28 +4,6 @@ import (
 	"testing"
 )
 
-func TestT(t *testing.T) {
-	input := []*TreeNode{
-		&TreeNode{
-			Val: 1,
-			Right: &TreeNode{
-				Val: 2,
-				Left: &TreeNode{
-					Val: 3,
-				},
-			},
-		},
-	}
-	expect := [][]int{
-		[]int{1, 3, 2},
-	}
-	for i, v := range input {
-		if ret := inorderTraversal(v); !compareSlice(ret, expect[i]) {
-			t.Errorf("%d err: expect:%v,get %v\n", i, expect[i], ret)
-		}
-	}
-}
-
 func compareSlice(x, y []int) bool {
 	if len(x) != len(y) {
 		return false
@@ -88,13 +66,13 @@ func TestPreorder(t *testing.T) {
 	}
 }
 
-// func TestSuorder(t *testing.T) {
-// 	nums := []int{9, 5, 13, 2, 6, 10, 15}
+func TestSuorder(t *testing.T) {
+	nums := []int{9}
 
-// 	root := buildTree(nums)
+	root := buildTree(nums)
 
-// 	x, y := suorderTraversal(root), suorderTraversal2(root)
-// 	if !compareSlice(x, y) {
-// 		t.Errorf("expect:%v,get:%v", y, x)
-// 	}
-// }
+	x, y := suorderTraversal(root), suorderTraversal2(root)
+	if !compareSlice(x, y) {
+		t.Errorf("expect:%v,get:%v", y, x)
+	}
+}
