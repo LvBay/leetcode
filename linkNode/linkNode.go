@@ -107,3 +107,43 @@ func AddTwoList(l1, l2 *ListNode) *ListNode {
 	}
 	return list3
 }
+
+// 翻转链表
+func Revert(node *ListNode) *ListNode {
+	pre := &ListNode{Next: node}
+
+	curr := pre.Next
+	for curr != nil && curr.Next != nil {
+		tmp := curr.Next
+		curr.Next = curr.Next.Next
+		tmp.Next = pre.Next
+		pre.Next = tmp
+	}
+	return pre.Next
+}
+
+func Combine(l1, l2 *ListNode) *ListNode {
+	curr1 := l1
+	curr2 := l2
+
+	pre := &ListNode{}
+	currp := pre
+	for curr1 != nil && curr2 != nil {
+		if curr1.Val < curr2.Val {
+			currp.Next = curr1
+			curr1 = curr1.Next
+		} else {
+			currp.Next = curr2
+			curr2 = curr2.Next
+		}
+		currp = currp.Next
+	}
+
+	if curr1 != nil {
+		currp.Next = curr1
+	} else {
+		currp.Next = curr2
+	}
+
+	return pre.Next
+}

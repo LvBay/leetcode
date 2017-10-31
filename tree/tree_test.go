@@ -45,6 +45,37 @@ func TestBuildTree(t *testing.T) {
 
 }
 
+func TestBuildNomalTree(t *testing.T) {
+	nums := []int{5, 4, 8, 11, -1, 13, 4, 7, 2, 5, 1}
+
+	root := buildNomalTree(nums)
+	// ret := inorderTraversal(root)
+	// t.Log(ret)
+	if root.Val != 5 {
+		t.Error("1")
+	}
+	if root.Left.Val != 4 {
+		t.Error("2")
+	}
+	if root.Right.Val != 8 {
+		t.Error("3")
+	}
+
+	if root.Left.Left.Val != 11 {
+		t.Error("4")
+	}
+	if root.Left.Right != nil {
+		t.Error("4")
+	}
+	if root.Right.Left.Val != 13 {
+		t.Error("5")
+	}
+	if root.Right.Right.Val != 4 {
+		t.Error("6")
+	}
+
+}
+
 func TestInorder(t *testing.T) {
 	nums := []int{9, 5, 13, 2, 6, 10, 15}
 

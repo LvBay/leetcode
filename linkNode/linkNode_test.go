@@ -1,15 +1,14 @@
-package linkNode_test
+package linkNode
 
 import (
-	"leetcode/linkNode"
 	"testing"
 	// "fmt"
 )
 
 func TestGetRear(t *testing.T) {
-	n1 := &linkNode.ListNode{1, nil}
-	n2 := &linkNode.ListNode{2, nil}
-	n3 := &linkNode.ListNode{3, nil}
+	n1 := &ListNode{1, nil}
+	n2 := &ListNode{2, nil}
+	n3 := &ListNode{3, nil}
 	n2.Next = n3
 	n1.Next = n2
 	if n3.GetRear() != n3 {
@@ -25,9 +24,9 @@ func TestGetRear(t *testing.T) {
 }
 
 func TestAppend(t *testing.T) {
-	n1 := &linkNode.ListNode{1, nil}
-	n2 := &linkNode.ListNode{2, nil}
-	n3 := &linkNode.ListNode{3, nil}
+	n1 := &ListNode{1, nil}
+	n2 := &ListNode{2, nil}
+	n3 := &ListNode{3, nil}
 	n1.Append(n2)
 	if n1.GetRear() != n2 {
 		t.Errorf("err2-1 want n2,but get %v", n2)
@@ -43,10 +42,10 @@ func TestAppend(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	n1 := &linkNode.ListNode{1, nil}
-	n2 := &linkNode.ListNode{2, nil}
-	n3 := &linkNode.ListNode{3, nil}
-	n4 := &linkNode.ListNode{4, nil}
+	n1 := &ListNode{1, nil}
+	n2 := &ListNode{2, nil}
+	n3 := &ListNode{3, nil}
+	n4 := &ListNode{4, nil}
 	list1 := n1.Append(n2)
 	list2 := n3.Append(n4)
 	list3 := list1.Add(list2)
@@ -74,15 +73,15 @@ func TestAdd(t *testing.T) {
 }
 
 func TestAddTwoList(t *testing.T) {
-	n1 := linkNode.ListNode{2, nil}
-	n2 := linkNode.ListNode{4, nil}
-	n3 := linkNode.ListNode{3, nil}
-	n4 := linkNode.ListNode{5, nil}
-	n5 := linkNode.ListNode{6, nil}
-	n6 := linkNode.ListNode{4, nil}
+	n1 := ListNode{2, nil}
+	n2 := ListNode{4, nil}
+	n3 := ListNode{3, nil}
+	n4 := ListNode{5, nil}
+	n5 := ListNode{6, nil}
+	n6 := ListNode{4, nil}
 	list1 := (&n1).Append(&n2).Append(&n3)
 	list2 := (&n4).Append(&n5).Append(&n6)
-	list3 := linkNode.AddTwoList(list1, list2)
+	list3 := AddTwoList(list1, list2)
 	if list3.Val != 7 {
 		t.Errorf("err 4-1 want 7, get %d", list3.Val)
 	} else {
@@ -98,12 +97,49 @@ func TestAddTwoList(t *testing.T) {
 	} else {
 		t.Log("PASS 4-3")
 	}
-	n7 := linkNode.ListNode{5, nil}
-	n8 := linkNode.ListNode{5, nil}
-	list3 = linkNode.AddTwoList(&n7, &n8)
+	n7 := ListNode{5, nil}
+	n8 := ListNode{5, nil}
+	list3 = AddTwoList(&n7, &n8)
 	if list3.Next.Val != 1 {
 		t.Errorf("err 4-4 want 1, get %d", list3.Next.Val)
 	} else {
 		t.Log("PASS 4-4")
+	}
+}
+
+func TestRevert(t *testing.T) {
+	node1 := &ListNode{Val: 1}
+	node2 := &ListNode{Val: 2}
+	node3 := &ListNode{Val: 3}
+	node4 := &ListNode{Val: 4}
+	node1.Next = node2
+	node2.Next = node3
+	node3.Next = node4
+
+	n5 := Revert(node1)
+	for i := 4; i > 0; i-- {
+		if i != n5.Val {
+			t.Errorf("want %d,bug get %d\n", i, n5.Val)
+			return
+		}
+		n5 = n5.Next
+	}
+}
+
+func TestCombine(t *testing.T) {
+	node1 := &ListNode{Val: 1}
+	node2 := &ListNode{Val: 2}
+	node3 := &ListNode{Val: 3}
+	node4 := &ListNode{Val: 4}
+	node1.Next = node3
+	node2.Next = node4
+
+	ret := Combine(node1, node2)
+	for i := 1; i < 5; i++ {
+		if i != ret.Val {
+			t.Errorf("want %d,bug get %d\n", i, ret.Val)
+			return
+		}
+		ret = ret.Next
 	}
 }

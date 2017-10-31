@@ -183,3 +183,48 @@ func buildTree(nums []int) *TreeNode {
 	}
 	return ret
 }
+
+// 构造二叉树 非搜索二叉树
+func buildNomalTree(nums []int) *TreeNode {
+	if len(nums) <= 0 {
+		return nil
+	}
+	var ret, node *TreeNode
+	ret = &TreeNode{Val: nums[0]}
+	stack := []*TreeNode{ret}
+	left := true
+	nextNode := true
+
+	for _, v := range nums[1:] {
+		// fmt.Println("lalal", v)
+		if nextNode {
+			node = stack[0]
+			stack = stack[1:]
+			nextNode = false
+		}
+		if left {
+			if v == -1 {
+				node.Left = nil
+				// fmt.Printf("%d.Left=nil\n", node.Val)
+			} else {
+				node.Left = &TreeNode{Val: v}
+				// fmt.Printf("%d.Left=%d\n", node.Val, v)
+				stack = append(stack, node.Left)
+			}
+
+			left = false
+		} else {
+			if v == -1 {
+				node.Right = nil
+				// fmt.Printf("%d.Right=nil\n", node.Val)
+			} else {
+				node.Right = &TreeNode{Val: v}
+				// fmt.Printf("%d.Right=%d\n", node.Val, v)
+				stack = append(stack, node.Right)
+			}
+			nextNode = true
+			left = true
+		}
+	}
+	return ret
+}
