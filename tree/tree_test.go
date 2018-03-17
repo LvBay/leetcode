@@ -1,4 +1,4 @@
-package main
+package tree
 
 import (
 	"testing"
@@ -86,16 +86,16 @@ func TestInorder(t *testing.T) {
 	}
 }
 
-func TestPreorder(t *testing.T) {
-	nums := []int{9, 5, 13, 2, 6, 10, 15}
+// func TestPreorder(t *testing.T) {
+// 	nums := []int{9, 5, 13, 2, 6, 10, 15}
 
-	root := buildTree(nums)
+// 	root := buildTree(nums)
 
-	x, y := preorderTraversal(root), preorderTraversal2(root)
-	if !compareSlice(x, y) {
-		t.Errorf("expect:%v,get:%v", y, x)
-	}
-}
+// 	x, y := preorderTraversal(root), preorderTraversal2(root)
+// 	if !compareSlice(x, y) {
+// 		t.Errorf("expect:%v,get:%v", y, x)
+// 	}
+// }
 
 func TestSuorder(t *testing.T) {
 	nums := []int{9}

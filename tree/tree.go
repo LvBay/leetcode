@@ -1,30 +1,48 @@
-package main
+package tree
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+// type TreeNode struct {
+// 	Val   int
+// 	Left  *TreeNode
+// 	Right *TreeNode
+// 	P     *TreeNode
+// }
 
 var ret1, ret2, ret3 []int
 
 // 中序遍历
 func inorderTraversal(root *TreeNode) []int {
+	// p := root
+	// stack := []*TreeNode{}
+	// ret := []int{}
+
+	// for p != nil || len(stack) > 0 {
+	// 	for p != nil {
+	// 		stack = append(stack, p)
+	// 		p = p.Left
+	// 	}
+
+	// 	if len(stack) > 0 {
+	// 		tmp := stack[len(stack)-1]
+	// 		p = tmp.Right // 每次添加值之后，检查右子节点
+	// 		ret = append(ret, tmp.Val)
+	// 		stack = stack[:len(stack)-1]
+	// 	}
+	// }
+	// return ret
+
+	ret := []int{}
 	p := root
 	stack := []*TreeNode{}
-	ret := []int{}
-
 	for p != nil || len(stack) > 0 {
-		for p != nil {
+		if p != nil {
 			stack = append(stack, p)
 			p = p.Left
 		}
-
 		if len(stack) > 0 {
 			tmp := stack[len(stack)-1]
-			p = tmp.Right // 每次添加值之后，检查右子节点
-			ret = append(ret, tmp.Val)
 			stack = stack[:len(stack)-1]
+			ret = append(ret, tmp.Val)
+			p = tmp.Right
 		}
 	}
 	return ret
